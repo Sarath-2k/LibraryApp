@@ -9,9 +9,9 @@ const nav = [
 
 ];
 
-
+//routers
 const booksRouter = express.Router();
-const authorsRouter = express.Router();
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -90,30 +90,14 @@ booksRouter.get("/",function(req,res){
     });
 });
 
-booksRouter.get("/:i",function(req,res){
-    req.params.i;
+booksRouter.get("/:singlebook",function(req,res){
+    const singlebook = req.params.singlebook;
     res.render("book",{
         nav:[{link:"/books",name:"Books"},{link:"/authors",name:"Authors"}],
         title:"Book",
-        book:books[i]
+        book:books[singlebook]
     })
 });
 
-authorsRouter.get("/",function(req,res){
-    res.render("authors",{
-        nav:[{link:"/books",name:"Books"},{link:"/authors",name:"Authors"}],
-        title:"Authors",
-        authors
-    })
-});
-
-authorsRouter.get("/:j",function(req,res){
-    req.params.j;
-    res.render("author",{
-        nav:[{link:"/books",name:"Books"},{link:"/authors",name:"Authors"}],
-        title:"Author",
-        author:authors[j]
-    })
-});
 
 app.listen(port,()=>{console.log("Server Ready at" + port)});
