@@ -11,6 +11,7 @@ const nav = [
 
 //routers
 const booksRouter = express.Router();
+const authorsRouter = express.Router();
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -99,5 +100,21 @@ booksRouter.get("/:singlebook",function(req,res){
     })
 });
 
+authorsRouter.get("/",function(req,res){
+    res.render("authors",{
+        nav:[{link:"/books",name:"Books"},{link:"/authors",name:"Authors"}],
+        title:"Authors",
+        authors
+    })
+});
+
+authorsRouter.get("/:singleauthor",function(req,res){
+    const singleauthor = req.params.singleauthor;
+    res.render("author",{
+        nav:[{link:"/books",name:"Books"},{link:"/authors",name:"Authors"}],
+        title:"Author",
+        author:authors[singleauthor]
+    })
+});
 
 app.listen(port,()=>{console.log("Server Ready at" + port)});
